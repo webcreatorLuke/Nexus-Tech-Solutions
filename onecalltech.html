@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneCallTech - Buy Tech Support Calls</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4500;
+            --secondary: #1a1a1a;
+            --accent: #00FF87;
+            --background: #0a0a0a;
+            --text: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E");
+            z-index: 1000;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 69, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 255, 135, 0.1) 0%, transparent 50%);
+        }
+        
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 12vw, 8rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeSlideDown 1s ease-out;
+            line-height: 0.9;
+        }
+        
+        .tagline {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            animation: fadeSlideDown 1s ease-out 0.2s backwards;
+        }
+        
+        .hours-display {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--text);
+            margin-bottom: 2rem;
+            animation: fadeSlideUp 1s ease-out 0.4s backwards;
+        }
+        
+        .hours-label {
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .buy-button {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--background);
+            background: var(--primary);
+            border: 3px solid var(--primary);
+            padding: 2rem 4rem;
+            margin: 2rem 0;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            animation: fadeSlideUp 1s ease-out 0.6s backwards;
+            box-shadow: 0 0 60px rgba(255, 69, 0, 0.5);
+        }
+        
+        .buy-button::before {
+            content: '💳';
+            margin-right: 1rem;
+            display: inline-block;
+        }
+        
+        .buy-button:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 10px 60px rgba(0, 255, 135, 0.6);
+        }
+        
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(128, 128, 128, 0.1);
+            border: 2px solid #666;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            animation: fadeSlideUp 1s ease-out 0.8s backwards;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #666;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #666;
+        }
+        
+        @keyframes fadeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .buy-button {
+                padding: 1.5rem 2.5rem;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <script>
+        // Check if we're currently open (12:00 AM - 4:00 PM)
+        function checkOpenHours() {
+            const now = new Date();
+            const hours = now.getHours();
+            
+            // Open from 0 (midnight) to 16 (4 PM)
+            const isOpen = hours >= 0 && hours < 16;
+            
+            const status = document.querySelector('.status');
+            const statusDot = document.querySelector('.status-dot');
+            
+            if (isOpen) {
+                status.innerHTML = '<span class="status-dot"></span>We\'re Open Now';
+                status.style.background = 'rgba(0, 255, 135, 0.1)';
+                status.style.borderColor = 'var(--accent)';
+                statusDot.style.background = 'var(--accent)';
+                statusDot.style.boxShadow = '0 0 20px var(--accent)';
+                statusDot.style.animation = 'pulse 2s ease-in-out infinite';
+            } else {
+                const nextOpen = hours >= 16 ? 'Opens Tomorrow at 12:00 AM' : 'Opens at 12:00 AM';
+                status.innerHTML = `<span class="status-dot"></span>We're Closed - ${nextOpen}`;
+            }
+        }
+        
+        // Check on load and every minute
+        window.addEventListener('load', function() {
+            checkOpenHours();
+            setInterval(checkOpenHours, 60000);
+        });
+        
+        function buyCall() {
+            alert('Payment system would load here - integrate Stripe, PayPal, etc.');
+            // This is where you'd integrate your payment processing
+        }
+    </script>
+</head>
+<body>
+    <div class="grain"></div>
+    
+    <div class="hero">
+        <h1 class="logo">ONECALLTECH</h1>
+        <p class="tagline">All Solutions. One Call.</p>
+        
+        <div class="hours-display">
+            <div class="hours-label">Open Daily</div>
+            12:00 AM - 4:00 PM
+        </div>
+        
+        <button class="buy-button" onclick="buyCall()">Buy a Call</button>
+        
+        <div class="status">
+            <span class="status-dot"></span>
+            We're Closed - Opens at 12:00 AM
+        </div>
+    </div>
+</body>
+</html>
